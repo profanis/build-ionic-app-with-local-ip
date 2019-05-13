@@ -1,6 +1,6 @@
 {
   "name": "buildwithmyip",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "uses your local ip when build your ionic app on your device",
   "main": "index.js",
   "private": false,
