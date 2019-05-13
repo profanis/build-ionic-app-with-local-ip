@@ -2,7 +2,7 @@ const ip = require('ip')
 const { spawn } = require('child_process')
 const fs = require('fs')
 const PLACEHOLDER = '{MYIP}'
-let environment = 'dev'
+let environment = ''
 let device = 'android'
 
 
