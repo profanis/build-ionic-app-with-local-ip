@@ -1,16 +1,3 @@
-/**
- * HOW TO USE
- *
- * Options:
- * 'device' the default value is android
- * 'env'    the default valus is dev
- *
- * In terminal run the following. This will use the default parameters
- * > node ./run_on_device.js
- *
- * Specify parameters
- * > node ./run_on_device.js device=iphone env=uat
- */
 const ip = require('ip')
 const { spawn } = require('child_process')
 const fs = require('fs')
@@ -18,14 +5,16 @@ const PLACEHOLDER = '{MYIP}'
 let environment = 'dev'
 let device = 'android'
 
-module.exports = function init() {
 
-  const args = process.argv.slice(2).reduce((acc, arg) => {
-    let [key, value = true] = arg.split('=')
-    acc[key] = value
-    return acc
-  }, {})
+const args = process.argv.slice(2).reduce((acc, arg) => {
+  let [key, value = true] = arg.split('=')
+  acc[key] = value
+  return acc
+}, {})
 
+init()
+
+function init() {
 
   environment = args.env || environment
   device = args.device || device
