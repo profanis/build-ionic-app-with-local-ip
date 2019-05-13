@@ -1,0 +1,15 @@
+{
+  "name": "buildwithmyip",
+  "version": "0.0.1",
+  "description": "uses your local ip when build your ionic app on your device",
+  "main": "index.js",
+  "private": false,
+  "keywords": [
+    "ionic"
+  ],
+  "author": "profanis",
+  "license": "ISC",
+  "dependencies": {
+    "ip": "^1.1.5"
+  }
+}
