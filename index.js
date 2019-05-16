@@ -6,30 +6,34 @@ let environment = ''
 let device = 'android'
 
 
-const args = process.argv.slice(2).reduce((acc, arg) => {
-  let [key, value = true] = arg.split('=')
-  acc[key] = value
-  return acc
-}, {})
+module.exports =  function() {
 
-init()
-
-function init() {
+  const args = process.argv.slice(2).reduce((acc, arg) => {
+    let [key, value = true] = arg.split('=')
+    acc[key] = value
+    return acc
+  }, {})
 
   environment = args.env || environment
   device = args.device || device
 
   const PATH = 'src/environments'
-  const files = fs.readdirSync(PATH, 'utf8')
-  for (let i = 0; i < files.length; i++) {
-    setMyIp(`${PATH}/${files[i]}`)
-  }
-
-  runIonic(() => {
+  try {
+    const files = fs.readdirSync(PATH, 'utf8')
+  
     for (let i = 0; i < files.length; i++) {
-      rollbackToPlaceholder(`${PATH}/${files[i]}`)
+      setMyIp(`${PATH}/${files[i]}`)
     }
-  })
+  
+    runIonic(() => {
+      for (let i = 0; i < files.length; i++) {
+        rollbackToPlaceholder(`${PATH}/${files[i]}`)
+      }
+    })
+  } catch (error) {
+    console.error('An unexpected error occured', error)
+    process.exit(1);
+  }
 }
 
 function runIonic(cb) {

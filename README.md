@@ -1,6 +1,9 @@
-#Build with my IP
+# Build Ionic App with my IP
 
-Build your application and serve it on your mobile. You defintely need to use a server address. The default one you have set for the development is no longer valid because it is `localhost` and localhost on your mobile device, is the device itself.
+Build your application and serve it on your mobile. While on development you defintely need to use localhost as server address but the `localhost` domain is not valid in your mobile. `localhost` in your mobile device, is your mobile itself
+
+### What it does
+It replaces the {MYIP} placeholder on your environment file with your local IP, builds the application, serves it on your mobile and reverts back the {MYIP} placeholder to avoid committing it 
 
 ### Install
 `npm install buildwithmyip -D`
@@ -12,21 +15,49 @@ On the `src/environments/environment.prod.ts` create a variable e.g. `serverAddr
 
 ### How to use 
 
-In `package.json` file create a task with your desired name and call the script
+1. Use the environment in your code. 
 
-`"ondevice": "node ./node_modules/buildwithmyip"`
+    ```
+    import { environment } from 'src/environments/environment'
+    ```
+    
+2. Use the environment on your service call
 
-Having set this, you can build your application with the newly created npm task
+    ```
+    @Injectable({
+      providedIn: 'root',
+    })
+    export class AuthorizationService {
+      private readonly endpoint = environment.serverAddress // <--- use it like this
 
-`npm run ondevice`
+      constructor(private http: HttpClient) {}
 
-#### With parameters
+      login(email: string, password: string) {
+        return this.http.post(`${this.endpoint}/login`, {
+          email,
+          password,
+        })
+      }
+    }
+    ```
+
+3. In `package.json` file create a task with your desired name and call the script
+
+    `"ondevice": "build-with-my-ip"`
+
+4. Build your application with the newly created npm task
+
+    `npm run ondevice`
+
+5. Enjoy!
+
+### Build with parameters
 
 **Build on iphone**
-`"ondevice": "node ./node_modules/buildwithmyip device=iphone"`
+`"ondevice": "build-with-my-ip device=iphone"`
 
 **Use other environment name**
-`"ondevice": "node ./node_modules/buildwithmyip env=YOUR_ENV_NAME"`
+`"ondevice": "build-with-my-ip env=YOUR_ENV_NAME"`
 
 
 ### Options

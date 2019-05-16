@@ -7,6 +7,9 @@
   "keywords": [
     "ionic"
   ],
+  "bin": {
+    "build-with-my-ip": "bin/buildwithmyip.js"
+  },
   "repository": "profanis/build-ionic-app-with-local-ip",
   "author": "profanis",
   "license": "MIT",
